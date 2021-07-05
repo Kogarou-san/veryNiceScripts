@@ -1,0 +1,13 @@
+Every "source" screenshot came from a clip loaded the same way as a "filtered" screenshot, with the exception of:
+-almost all of the filterchain is missing for obvious reasons
+-they only include TIVTC+Decimation as used for Filtered screenshots, or Yadif2x instead of QTGMC. This was needed to maintain frame number consistency, especially with yadif being a simple but double rate deinterlacer
+-the aspect ratio correction is performed with BilinearResize(), instead of a much better nnedi3_resize16. This difference is probably the cause of the biggest noticeable diff between versions in "kai-AB01-022878"
+-there is also no point in doing the "Source" with more than 8 bits of precision since there is nothing much happening, so that was removed too
+
+Essentially the "Source".AVS would look like this
+LWLibavAudioSource("vid",threads=2, prefer_hw=1)
+TFM, TDecimate and Vinverse the same way, or Yadifmod2(mode=3)
+
+
+
+I've also included older versions of the scripts. I didn't have an older version of the exact same script for the animation example (kai-AB01 or kai-OP01), but nontheless should show give a good idea of an older script for the same content
